@@ -3,7 +3,7 @@ console.log("Interact with the RailwayMan trough the global object \'RailMan\'!"
 console.log("Ask for a ticket and be kind! ;)");
 console.log("HINT: you may find RailMan available methods typing \'RailMan.\' in the console and looking at your browser autocompletions")
 addEventListener("TALK", (event) => {
-    console.log(event.detail);
+    console.log("\n" + event.detail + "\n ", "font-size: 15px", "color: beige; font-size: 15px");
 });
 
 function autoPlay() {
@@ -37,8 +37,7 @@ function autoPlay() {
     RailMan.askForTicket(formNormal);
     RailMan.askForTicket(formOld);
 
-    console.log("Finish");
-    console.log();
+    console.log("\nFinished Autoplay\n ");
 
     // Back to normality
     RailMan = new RailwayMan("Mike");
@@ -64,7 +63,7 @@ class RailwayMan {
 
     // This is just a fancy "console.log()"
     #say(sentence /* string */) {
-        sentence = "[RailMan] " + sentence;
+        sentence = "%c[RailMan] %c" + sentence;
         const event = new CustomEvent("TALK", {
             "detail": sentence,
         })
@@ -119,7 +118,10 @@ class RailwayMan {
         } else {
             // Player is empty handed
             this.#say("Well, first you'll have to fill this form");
-            this.#say("Come back later and ask again with the compiled form")
+            this.#say(
+                `Come back later and ask again 
+                with the compiled form`
+                );
 
             const FORM = {
                 age: "fill here",
@@ -132,7 +134,7 @@ class RailwayMan {
                 window.DRAWER = {
                     "FORM": FORM,
                 }
-            }, 6000);
+            }, 5000);
 
             return FORM;
         }
