@@ -6,6 +6,44 @@ addEventListener("TALK", (event) => {
     console.log(event.detail);
 });
 
+function autoPlay() {
+    // Sample forms
+    const
+        formYoung = {
+            age: 10,
+            km: 20
+        },
+        formOld = {
+            age: 80,
+            km: 20
+        },
+        formNormal = {
+            age: 40,
+            km: 20
+        };
+
+    // Angry RailMan
+    console.log("Angry RailMan");
+    RailMan = new RailwayMan("Mr.TooSeriousToPlay :D", "BAD");
+    RailMan.askForTicket();
+    RailMan.askForTicket(formYoung);
+    RailMan.askForTicket(formNormal);
+    RailMan.askForTicket(formOld);
+
+    // Happy RailMan
+    console.log("Happy RailMan");
+    RailMan.compliment()
+    RailMan.askForTicket(formYoung);
+    RailMan.askForTicket(formNormal);
+    RailMan.askForTicket(formOld);
+
+    console.log("Finish");
+    console.log();
+
+    // Back to normality
+    RailMan = new RailwayMan("Mike");
+}
+
 // RAILWAY MAN
 class RailwayMan {
 
@@ -13,9 +51,9 @@ class RailwayMan {
     #name;
     #mood;
 
-    constructor(name) {
+    constructor(name, mood) {
         this.#name = name;
-        this.#mood = Math.round(Math.random()) == 0 ? "BAD" : "GOOD";
+        this.#mood = mood ?? Math.round(Math.random()) == 0 ? "BAD" : "GOOD";
 
         this.#say(
             `Hi! I'm the RailwayMan, 
@@ -33,7 +71,7 @@ class RailwayMan {
         window.dispatchEvent(event);
     }
 
-    compliment(){
+    compliment() {
         this.#say("Oh thanks! I really needed that today!");
         this.#mood = "GOOD";
     }
@@ -44,14 +82,15 @@ class RailwayMan {
 
         if (form) {
             // Player has form
-            
+            console.log(JSON.stringify(form));
+
             let eurosPerKm = 0.21; //standard rate
 
             // Let's apply some discounts
-            if(form.age < 18){
+            if (form.age < 18) {
                 this.#say("Well young man, you have a discount of 20%");
                 eurosPerKm -= eurosPerKm * .20;
-            } else if(form.age > 65){
+            } else if (form.age > 65) {
                 this.#say("Compliments! You are entitled for the \"Final Destination\" discount! -40%.");
                 eurosPerKm -= eurosPerKm * .40;
             } else {
@@ -61,7 +100,7 @@ class RailwayMan {
             // To the math...
             let price = eurosPerKm * form.km;
             let prefix;
-            if(this.#mood == "BAD"){
+            if (this.#mood == "BAD") {
                 prefix = "[grunting] ";
                 price = Math.ceil(price);
             } else {
