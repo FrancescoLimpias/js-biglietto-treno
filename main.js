@@ -83,6 +83,24 @@ class RailwayMan {
             // Player has form
             console.log(JSON.stringify(form));
 
+            // Form validation
+            if(!(
+
+                // Age
+                form.age
+                && parseInt(form.age) != NaN
+                && form.age > 0
+
+                // KM
+                && form.km
+                && parseFloat(form.km) != NaN
+                && form.km > 0
+                
+                )){
+                this.#say("Sir, I'm afraid yours is a faulty form, please check it again");
+                return;
+            }
+
             let eurosPerKm = 0.21; //standard rate
 
             // Let's apply some discounts
